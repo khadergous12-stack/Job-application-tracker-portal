@@ -322,30 +322,6 @@ git commit -m "docs: update README with screenshots"
 
 ---
 
-## 📸 Screenshots
-
-> Add screenshots here after running the project locally.
-
-| Page | Description |
-|------|-------------|
-| `/login` | Login page with demo credentials |
-| `/register` | Register new account |
-| `/dashboard` | Stats cards + pipeline + recent activity |
-| `/applications` | Full list with search, filter, edit, delete |
-| `/analytics` | Funnel + timeline + source charts |
-
-**Capture these for GitHub:**
-- Register page
-- Login page
-- Dashboard with data
-- Applications list with filters
-- Edit application modal
-- Analytics charts
-- MongoDB Compass screenshot (data)
-- Postman/Thunder API testing screenshot
-
----
-
 ## 🎓 Learning Outcomes
 
 By building this project, you learn:
@@ -376,31 +352,9 @@ By building this project, you learn:
 
 ---
 
-## ❓ Interview Q&A
-
-**Q1: Explain your project.**
-> I built a full-stack Job Application Tracker Portal using the MERN stack. It allows users to register, log in, and manage their job applications with features like status tracking (Saved → Applied → Interview → Offer), search and filter, date tracking for interviews, and analytics with charts showing funnel conversion, source distribution, and weekly trends.
-
-**Q2: How did you implement authentication?**
-> I used JWT (JSON Web Tokens). On login, the backend generates a signed token containing the user ID. The frontend stores this token in localStorage and sends it in the `Authorization: Bearer <token>` header for every protected API request. The `authMiddleware.js` verifies the token before allowing access.
-
-**Q3: What is Mongoose and why did you use it?**
-> Mongoose is an ODM (Object Data Modeling) library for MongoDB. It lets me define schemas with validation, types, and hooks. I used it to define the User and JobApplication models with built-in validation, a pre-save hook to hash passwords, and instance methods like `matchPassword`.
-
-**Q4: How does the Context API work in your project?**
-> I created an `AuthContext` that wraps the entire app. It holds the `user`, `token`, `login`, `register`, and `logout` functions. Any component can access auth state using the `useAuth()` custom hook without prop drilling.
-
-**Q5: What challenges did you face?**
-> The main challenges were: (1) handling CORS between React on port 3000 and Express on port 5000, (2) securing routes so users can only access their own data, (3) managing loading states for async API calls, and (4) building responsive charts with Recharts.
-
----
-
 ## 👨‍💻 Author
 
 Built as a Full Stack Development portfolio project.
-
-**GitHub:** [your-username](https://github.com/your-username)
-**LinkedIn:** [your-profile](https://linkedin.com/in/your-profile)
 
 ---
 
