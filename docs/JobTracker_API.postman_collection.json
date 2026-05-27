@@ -1,0 +1,223 @@
+{
+  "info": {
+    "name": "Job Application Tracker API — Full Collection",
+    "description": "Complete API collection including Auth, Jobs, Tasks, Documents, Import, and Analytics.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:5000/api" },
+    { "key": "token",   "value": "PASTE_YOUR_JWT_TOKEN_HERE" },
+    { "key": "jobId",   "value": "PASTE_JOB_ID_HERE" }
+  ],
+  "item": [
+    {
+      "name": "Health",
+      "item": [
+        { "name": "GET /health", "request": { "method": "GET", "url": "http://localhost:5000/api/health" } }
+      ]
+    },
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Register",
+          "request": {
+            "method": "POST", "url": "{{baseUrl}}/auth/register",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"name\": \"John Doe\",\n  \"email\": \"john@example.com\",\n  \"password\": \"password123\"\n}" }
+          }
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST", "url": "{{baseUrl}}/auth/login",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"email\": \"demo@jobtracker.com\",\n  \"password\": \"demo123\"\n}" }
+          }
+        },
+        {
+          "name": "Get Me",
+          "request": {
+            "method": "GET", "url": "{{baseUrl}}/auth/me",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Job Applications",
+      "item": [
+        {
+          "name": "Get All Jobs",
+          "request": {
+            "method": "GET", "url": "{{baseUrl}}/jobs",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }]
+          }
+        },
+        {
+          "name": "Get Jobs (Filter by Status)",
+          "request": {
+            "method": "GET", "url": "{{baseUrl}}/jobs?status=Interview",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }]
+          }
+        },
+        {
+          "name": "Search Jobs",
+          "request": {
+            "method": "GET", "url": "{{baseUrl}}/jobs?search=Google",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }]
+          }
+        },
+        {
+          "name": "Create Job",
+          "request": {
+            "method": "POST", "url": "{{baseUrl}}/jobs",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": { "mode": "raw", "raw": "{\n  \"companyName\": \"Google\",\n  \"roleTitle\": \"Software Engineer\",\n  \"location\": \"Bangalore\",\n  \"source\": \"LinkedIn\",\n  \"status\": \"Applied\",\n  \"priority\": \"High\",\n  \"appliedDate\": \"2025-01-15\",\n  \"salaryNote\": \"28 LPA\",\n  \"notes\": \"Referral from senior\"\n}" }
+          }
+        },
+        {
+          "name": "Update Job",
+          "request": {
+            "method": "PUT", "url": "{{baseUrl}}/jobs/{{jobId}}",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": { "mode": "raw", "raw": "{\n  \"status\": \"Interview\",\n  \"interviewDate\": \"2025-02-10\"\n}" }
+          }
+        },
+        {
+          "name": "Delete Job",
+          "request": {
+            "method": "DELETE", "url": "{{baseUrl}}/jobs/{{jobId}}",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }]
+          }
+        },
+        {
+          "name": "Get Analytics",
+          "request": {
+            "method": "GET", "url": "{{baseUrl}}/jobs/analytics",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Tasks (per Job)",
+      "item": [
+        {
+          "name": "Get Tasks",
+          "request": {
+            "method": "GET", "url": "{{baseUrl}}/jobs/{{jobId}}/tasks",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }]
+          }
+        },
+        {
+          "name": "Create Task (with Reminder)",
+          "request": {
+            "method": "POST", "url": "{{baseUrl}}/jobs/{{jobId}}/tasks",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": { "mode": "raw", "raw": "{\n  \"title\": \"Prepare for technical round\",\n  \"dueAt\": \"2025-02-10T09:30:00.000Z\"\n}" }
+          }
+        },
+        {
+          "name": "Create Task (no Reminder)",
+          "request": {
+            "method": "POST", "url": "{{baseUrl}}/jobs/{{jobId}}/tasks",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": { "mode": "raw", "raw": "{\n  \"title\": \"Follow up with recruiter\"\n}" }
+          }
+        },
+        {
+          "name": "Toggle Task Done",
+          "request": {
+            "method": "PATCH", "url": "{{baseUrl}}/jobs/{{jobId}}/tasks/TASK_ID_HERE/toggle",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }]
+          }
+        },
+        {
+          "name": "Delete Task",
+          "request": {
+            "method": "DELETE", "url": "{{baseUrl}}/jobs/{{jobId}}/tasks/TASK_ID_HERE",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Documents (per Job)",
+      "item": [
+        {
+          "name": "Get Documents",
+          "request": {
+            "method": "GET", "url": "{{baseUrl}}/jobs/{{jobId}}/documents",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }]
+          }
+        },
+        {
+          "name": "Upload Document",
+          "request": {
+            "method": "POST", "url": "{{baseUrl}}/jobs/{{jobId}}/documents",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                { "key": "file", "type": "file", "src": "/path/to/resume.pdf" },
+                { "key": "kind", "value": "Resume", "type": "text" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Download Document",
+          "request": {
+            "method": "GET", "url": "{{baseUrl}}/jobs/{{jobId}}/documents/DOC_ID_HERE/download",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }]
+          }
+        },
+        {
+          "name": "Delete Document",
+          "request": {
+            "method": "DELETE", "url": "{{baseUrl}}/jobs/{{jobId}}/documents/DOC_ID_HERE",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }]
+          }
+        }
+      ]
+    },
+    {
+      "name": "CSV Import",
+      "item": [
+        {
+          "name": "Download Template CSV",
+          "request": {
+            "method": "GET", "url": "{{baseUrl}}/import/template",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }]
+          }
+        },
+        {
+          "name": "Import CSV",
+          "request": {
+            "method": "POST", "url": "{{baseUrl}}/import/csv",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                { "key": "file", "type": "file", "src": "/path/to/applications.csv" }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
